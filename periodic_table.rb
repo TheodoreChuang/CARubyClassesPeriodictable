@@ -30,29 +30,23 @@
 ### Refactor Elements Data imported from JSON file instead of hard keyed ###
 # httpse.//github.com/Bowserinator/Periodic-Table-JSON/blob/master/PeriodicTableJSON.json
 # 1. Expand your class defintion to include all the properties here.
-# 2. Use the code for reading from a file in #advanced-questions to injest the data into your app as a hash
+# 2. Injest the data into your app as a hash
 # 3. Create object instances using the hashes
 
-### YOUR CODE HEREe.
 require_relative "models/element"
 require "JSON"
 
-### Import Data from JSON ###
 file = File.read("PeriodicTableJSON.json")
 data_hash = JSON.parse(file)
 
-data_hash["elements"].each do |e|
-  Element.new(e)
+data_hash["elements"].each do |ele|
+  instance_variable_set("@#{ele["name"].downcase}", Element.new(ele))
 end
 
 ### TESTS ###
-# p Element.all
-# p Element.all.count
+# p Element.elements.count
 # p Element.display_all
 # p data_hash["elements"]             # hash of elements
-# p data_hash["elements"][0].count    # hash of an element
 # p data_hash["elements"][0].keys     # keys of an element
 # p data_hash["elements"][0]["name"]  # value of key name
-
-# TODO: Dynamically create variables for each element
-# p var.round_atomic_mass             # hash of elements
+# p @hydrogen.atomic_mass

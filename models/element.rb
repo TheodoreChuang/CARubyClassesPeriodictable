@@ -23,16 +23,12 @@ class Element
     @xpos = hash["xpos"]
     @ypos = hash["ypos"]
     @shells = hash["shells"]
-    self.class.all << self
+    self.class.elements << self
   end
 
   @elements = []
   class << self
     attr_accessor :elements
-
-    def all
-      @elements
-    end
 
     def display_all
       for e in @elements
@@ -50,3 +46,5 @@ class Element
     print @atomic_mass.round unless @atomic_mass == nil
   end
 end
+
+# TODO: Dynamically generate @instance_variables and :accessor from imported data
