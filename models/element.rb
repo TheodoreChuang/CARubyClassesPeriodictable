@@ -1,3 +1,5 @@
+require "terminal-table"
+
 class Element
   attr_accessor :name, :appearance, :atomic_mass, :boil, :category, :color, :density, :discovered_by, :melt, :molar_heat, :named_by, :number, :period, :phase, :source, :spectral_img, :summary, :symbol, :xpos, :ypos, :shells
 
@@ -38,8 +40,12 @@ class Element
     end
   end
 
+  def to_a
+    [@name, @number, @atomic_mass]
+  end
+
   def display_element
-    puts "Name: #{@name} | Atomic number: #{@number} | Atomic Mass: #{round_atomic_mass}"
+    puts "Name: #{@name} | Atomic number: #{@number} | Atomic Mass: #{@atomic_mass.round}"
   end
 
   def round_atomic_mass

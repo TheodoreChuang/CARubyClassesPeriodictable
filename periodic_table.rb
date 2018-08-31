@@ -35,6 +35,7 @@
 
 require_relative "models/element"
 require "JSON"
+require "terminal-table"
 
 file = File.read("PeriodicTableJSON.json")
 data_hash = JSON.parse(file)
@@ -43,9 +44,13 @@ data_hash["elements"].each do |ele|
   instance_variable_set("@#{ele["name"].downcase}", Element.new(ele))
 end
 
+rows = Element.elements.map { |ele| ele.to_a }
+table = Terminal::Table.new :headings => ["Name", "Atomic Number", "Atomic Mass"], :rows => rows
+puts table
+
 ### TESTS ###
-# p Element.elements.count
 # p Element.display_all
+# p Element.elements                  # array of instances
 # p data_hash["elements"]             # hash of elements
 # p data_hash["elements"][0].keys     # keys of an element
 # p data_hash["elements"][0]["name"]  # value of key name
